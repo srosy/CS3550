@@ -1,0 +1,107 @@
+/* All examples are taken from the book unless mentioned otherwise. */
+
+-- Example: 5.1
+USE master;
+CREATE DATABASE test1;
+
+-- Example: 5.2USE master;
+CREATE DATABASE test2 ON (NAME=test2_dat, filename='c:\temp\test2.mdf', size=10, maxsize=100, filegrowth=5)
+log ON (NAME=test_log, filename='c:\temp\test2.ldf', size=10, maxsize=100, filegrowth=10);
+
+-- Example: 5.4USE cs3550;CREATE TABLE department
+(
+	dept_no VARCHAR(4) NOT NULL,
+	dept_name VARCHAR(25) NOT NULL,
+	location VARCHAR(30) NULL
+);CREATE TABLE project
+(
+	project_no VARCHAR(4) NOT NULL,
+	project_name VARCHAR(30) NOT NULL,
+	budget FLOAT NULL
+);
+
+-- Drop a table
+DROP TABLE IF EXISTS employee;
+
+-- Default constraint, when new project is created, p1 should be default
+-- Example: 5.6
+USE cs3550;
+CREATE TABLE projects2
+(
+	project_no VARCHAR(4) DEFAULT 'p1',
+	project_name VARCHAR(30) NOT NULL,
+	budget FLOAT NULL
+);
+
+-- Default constraint, when new project is created if exists,
+-- p1 should be default and project_name should be unique
+USE cs3550;
+DROP TABLE IF EXISTS projects2
+CREATE TABLE projects2
+(
+	project_no varchar(4) DEFAULT 'p1',
+	project_name varchar(30) NOT NULL,
+	budget float NULL
+	CONSTRAINT unique_project_name UNIQUE (project_name)
+);
+
+-- Example: 5.9
+-- each customer has a customer group, the group has limited values
+-- values are 'c1', 'v2', 'c10'USE cs3550;
+CREATE TABLE customer
+(
+	custo_no INTEGER NOT NULL,
+	cust_group VARCHAR(3)
+	CHECK (cust_group IN ('c1', 'c2', 'c10'))
+);
+
+-- Check constraint
+USE cs3550;
+DROP TABLE IF EXISTS projects2
+CREATE TABLE projects2
+(
+	project_no varchar(4) DEFAULT 'p1',
+	project_name varchar(30) NOT NULL,
+	budget float NULL
+	CONSTRAINT unique_project_name UNIQUE (project_name)
+	CONSTRAINT check_budget_for_positive CHECK (budget >= 0)
+);
+
+USE sample;
+SELECT * FROM department;
+SELECT * FROM employee;
+
+
+-- Primary key constraint
+USE sample2;
+CREATE TABLE department
+(
+	dept_no CHAR(4) NOT NULL,
+	dept_name CHAR(25) NOT NULL,
+	location CHAR(30) NULL,
+	CONSTRAINT prim_dept PRIMARY KEY (dept_no)
+);
+
+-- Foreign key constraint
+USE sample2;
+CREATE TABLE employee
+(
+	emp_no INTEGER NOT NULL,
+	emp_fname CHAR(20) NOT NULL,
+	emp_lname CHAR(20) NOT NULL,
+	dept_no CHAR(4) NULL,
+	CONSTRAINT prim_emp PRIMARY KEY (emp_no),
+	CONSTRAINT foreign_emp FOREIGN KEY(dept_no) REFERENCES departement(dept_no)
+);
+
+-- Double foreign key constraint
+CREATE TABLE works_on
+(
+	emp_no INTEGER NOT NULL,
+	project_no CHAR(4) NOT NULL,
+	job CHAR(15) NULL,
+	enter_date DATE NULL
+	CONSTRAINT prim_works PRIMARY KEY(emp_no, project_no)
+	CONSTRAINT foreign1_works FOREIGN KEY (emp_ono) REFERENCES employee(emp_no)
+	CONSTRAINT foreign2_works FOREIGN KEY(project_no) REFERENCES project(project_no)
+);

@@ -1,0 +1,3 @@
+1. Customers Table: Doesn't contain any transitive dependencies and qualifies as Second Normal (N2) form, therefore it is in Third Normal (N3) form.
+2. Orders Table: All columns depend on the complete composite primary key. It does not have any partial dependencies (no columns rely solely on one of the composite keys) and qualifies as First Normal (N1) form, therefore it is in Second Normal (N2) form. 
+3. Products Table: All columns depend on the complete composite primary key. It does not have any partial dependencies (no columns rely solely on one of the composite keys) and qualifies as First Normal (N1) form, therefore it is in Second Normal (N2) form. 
