@@ -1,0 +1,8 @@
+I propose that we make a non-clustered index on the phone column on the Customers table. 
+
+SQL:
+
+USE Northwind; 
+GO
+CREATE NONCLUSTERED INDEX IX_Customer_Phone
+ON Customers(Phone);
