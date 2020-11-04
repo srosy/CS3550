@@ -1,0 +1,8 @@
+
+//dump
+C:\Users\seros\Downloads\mongodb-database-tools-windows-x86_64-100.2.0\mongodb-database-tools-windows-x86_64-100.2.0\bin
+mongodump.exe --host=localhost --db=Northwind --out="c:\temp\northwind\data"
+
+//restore
+C:\Users\seros\Downloads\mongodb-database-tools-windows-x86_64-100.2.0\mongodb-database-tools-windows-x86_64-100.2.0\bin
+mongorestore.exe --host=localhost --db=Northwind "c:\temp\northwind\data\Northwind"

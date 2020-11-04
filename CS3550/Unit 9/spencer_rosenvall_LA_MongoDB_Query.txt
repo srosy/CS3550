@@ -1,0 +1,46 @@
+db.departments.find({})
+db.departments.find({"dept_no":"d1"})
+db.departments.find({"dept_name":"Research"})
+db.departments.find({"location":"Ogden"})
+db.departments.find({"dept_name": {$in:["Research","Sales"]}})
+db.departments.find({"location":"Ogden", "dept_name": "Research"})
+db.departments.find({$or:[{location:"Ogden"},{dept_name:"Research"}]})
+db.departments.find({$or:[{location:"Ogden"},{dept_name:"Sales"}]})
+db.departments.find({$and : [{"dept_name":"Research"},{"location":"Ogden"}]})
+db.projects.insertOne({"project_no":"p3", "project_name":"Mercury", "budget":186500})
+db.projects.insertOne({"project_no":"p1", "project_name":"Apollo", "budget":120000}) 
+db.projects.insertOne({"project_no":"p2", "project_name":"Gemini", "budget":95000})
+db.projects.find({"budget":186500})
+db.projects.find({"budget" : {$eq: 186500}})
+db.projects.find({"budget" : {$gt: 100000}})
+db.projects.find({"project_name": /G/})
+db.projects.find({"project_name": /e/})
+db.projects.find({"project_name": /e/},{"project_no":1})
+db.projects.find({"project_name": /e/},{"project_no":1, "project_name":1})
+db.projects.find({"project_name": /e/},{"project_no":1, "project_name":1, "_id":0})
+db.projects.find({}, {})
+db.projects.find({}, {"_id":0})
+db.projects.find({}, {"_id":0, "project_no":0})
+db.projects.find({},{"project_no":1, project_name:0})
+db.employees.find({},{"first_name": 1, "last_name":1, "department.dept_name":1})
+db.employees.find({},{"first_name": 1, "last_name":1, "department.dept_name":1, "_id":0})
+db.employees.find({"department.location":"Ogden"})
+db.employees.find({"department.dept_name":/s/})
+db.employees.find({"department.dept_name":/R/})
+db.employees_with_projects.find({"project.project_no":"p3"})
+db.employees_with_projects.find({"project.project_no":"p1"})
+db.employees_with_projects.find({$or: [{"project.project_name":"Gemini"},{"project.budget": {$gt : 150000}}]})
+
+--dump
+C:\Users\seros\Downloads\mongodb-database-tools-windows-x86_64-100.2.0\mongodb-database-tools-windows-x86_64-100.2.0\bin
+mongodump.exe --host=localhost --db=Northwind --out="c:\temp\northwind\data"
+
+--restore
+C:\Users\seros\Downloads\mongodb-database-tools-windows-x86_64-100.2.0\mongodb-database-tools-windows-x86_64-100.2.0\bin
+mongorestore.exe --host=localhost --db=Northwind "c:\temp\northwind\data\Northwind"
+
+
+
+
+
+    
