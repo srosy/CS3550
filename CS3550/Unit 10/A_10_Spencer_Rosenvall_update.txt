@@ -1,0 +1,5 @@
+2.1-
+db.orders.updateMany({"Shipper.CompanyName": "Federal Shipping"},[{$set: {   "Shipper.Phone": "111-111-1111" }}])
+
+2.2-
+db.orders.updateMany({"Shipper.CompanyName": "Federal Shipping"},[{$addFields: {   "Shipper.ContactName": "John Doe" }}])

@@ -1,0 +1,37 @@
+1.1-
+[{$match: {
+  $or: [{"ShipCountry": "Brazil"}, {"ShipCountry": "France"}]
+}}, {$group: {
+  _id: null,
+  count: {
+    $sum: 1
+  }
+}}]
+
+1.2-
+[{$match: {
+  $or: [{"products.ProductName": "Manjimup Dried Apples"}, {"products.ProductName": "Chang"}]
+}}, {$project: {
+  _id: 0, "customer.CompanyName": 1, "customer.CustomerID": 1
+}}, {$sort: {
+  "customer.CompanyName": +1
+}}]
+
+1.3-
+[{$group: {
+  _id: "$ShipCountry",
+  CustomerCount: {
+    $sum: 1}
+}}]
+
+1.4-
+[{$unwind:  "$products"
+}, {$group: {
+  _id: "$_id",
+  order_total: {
+    $sum: {$multiply: ["$products.UnitPrice","$products.Quantity"]}
+  }
+}}, {$match: {
+  "order_total": {$gt:500}
+}}]
+
